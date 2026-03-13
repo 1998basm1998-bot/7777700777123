@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة شركة نقل النفط</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>شركة نقل النفط</h1>
+        <nav class="tabs-container">
+            <button class="tab-btn active" onclick="openTab('dashboard')">الرئيسية</button>
+            <button class="tab-btn" onclick="openTab('transports')">النقلات</button>
+            <button class="tab-btn" onclick="openTab('cars')">السيارات</button>
+            <button class="tab-btn" onclick="openTab('drivers')">السواق</button>
+            <button class="tab-btn" onclick="openTab('factories')">المعامل</button>
+            <button class="tab-btn" onclick="openTab('advances')">السلف</button>
+            <button class="tab-btn" onclick="openTab('expenses')">المصاريف</button>
+            <button class="tab-btn" onclick="openTab('reports')">التقارير</button>
+            <button class="tab-btn" onclick="openTab('documents')">الوثائق</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="tab-content active">
+            <h2>لوحة التحكم الرئيسية</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><h3>نقلات اليوم</h3><p id="stat-daily-transports">0</p></div>
+                <div class="stat-card"><h3>نقلات الشهر</h3><p id="stat-monthly-transports">0</p></div>
+                <div class="stat-card"><h3>نقلات الشركة</h3><p id="stat-company-transports">0</p></div>
+                <div class="stat-card"><h3>نقلات المؤجرة</h3><p id="stat-rented-transports">0</p></div>
+                <div class="stat-card"><h3>مجموع السلف</h3><p id="stat-total-advances">0</p></div>
+                <div class="stat-card"><h3>أرباح الشركة</h3><p id="stat-company-profits">0</p></div>
+                <div class="stat-card"><h3>مصاريف المعامل</h3><p id="stat-factory-expenses">0</p></div>
+            </div>
+            <h3>آخر 10 نقلات</h3>
+            <table>
+                <thead>
+                    <tr><th>التاريخ</th><th>السائق</th><th>رقم السيارة</th><th>المعمل</th><th>الكمية</th><th>الأجرة</th></tr>
+                </thead>
+                <tbody id="recent-transports-table"></tbody>
+            </table>
+        </section>
+
+        <section id="transports" class="tab-content">
+            <h2>إدارة النقلات</h2>
+            <div class="actions-bar">
+                <button onclick="alert('سيتم فتح واجهة الإدخال السريع (شبيهة بـ Excel) في التطويرات القادمة.')" class="btn-secondary">الإدخال السريع</button>
+            </div>
+            <form id="transport-form" class="form-grid">
+                <input type="date" id="trans-date" required>
+                <input type="text" id="trans-driver" placeholder="اسم السائق" required>
+                <input type="text" id="trans-car" placeholder="رقم السيارة" required>
+                <input type="text" id="trans-factory" placeholder="المعمل" required>
+                <input type="number" id="trans-qty" placeholder="الكمية" required>
+                <input type="number" id="trans-price" placeholder="أجرة النقلة" required>
+                <button type="submit">حفظ النقلة</button>
+            </form>
+            <table>
+                <thead>
+                    <tr><th>التاريخ</th><th>السائق</th><th>السيارة</th><th>المعمل</th><th>الكمية</th><th>الأجرة</th><th>إجراء</th></tr>
+                </thead>
+                <tbody id="transports-table"></tbody>
+            </table>
+        </section>
+
+        <section id="cars" class="tab-content">
+            <h2>إدارة السيارات</h2>
+            <form id="car-form" class="form-grid">
+                <input type="text" id="car-number" placeholder="رقم السيارة" required>
+                <input type="text" id="car-driver" placeholder="اسم السائق" required>
+                <select id="car-type">
+                    <option value="شركة">سيارة شركة</option>
+                    <option value="مؤجرة">سيارة مؤجرة</option>
+                </select>
+                <input type="text" id="car-owner" placeholder="اسم صاحب السيارة (للمؤجرة)">
+                <button type="submit">إضافة سيارة</button>
+            </form>
+            <table>
+                <thead>
+                    <tr><th>الرقم</th><th>السائق</th><th>النوع</th><th>الصاحب</th><th>النقلات</th><th>الإيرادات</th><th>المصاريف</th><th>الربح</th><th>إجراء</th></tr>
+                </thead>
+                <tbody id="cars-table"></tbody>
+            </table>
+        </section>
+
+        <section id="drivers" class="tab-content">
+            <h2>إدارة السواق</h2>
+            <form id="driver-form" class="form-grid">
+                <input type="text" id="drv-name" placeholder="اسم السائق" required>
+                <input type="text" id="drv-phone" placeholder="رقم الهاتف" required>
+                <input type="text" id="drv-car" placeholder="رقم السيارة" required>
+                <input type="text" id="drv-factory" placeholder="المعمل">
+                <button type="submit">إضافة سائق</button>
+            </form>
+            <table>
+                <thead>
+                    <tr><th>السائق</th><th>الهاتف</th><th>السيارة</th><th>النقلات</th><th>مجموع السلف</th><th>الرصيد</th><th>إجراء</th></tr>
+                </thead>
+                <tbody id="drivers-table"></tbody>
+            </table>
+        </section>
+
+        <section id="factories" class="tab-content">
+            <h2>إدارة المعامل</h2>
+            <form id="factory-form" class="form-grid">
+                <input type="text" id="fac-name" placeholder="اسم المعمل" required>
+                <input type="number" id="fac-price" placeholder="سعر النقلة" required>
+                <input type="text" id="fac-notes" placeholder="ملاحظات">
+                <button type="submit">إضافة معمل</button>
+            </form>
+            <table>
+                <thead>
+                    <tr><th>المعمل</th><th>سعر النقلة</th><th>عدد النقلات</th><th>الكمية الكلية</th><th>المبلغ الكلي</th></tr>
+                </thead>
+                <tbody id="factories-table"></tbody>
+            </table>
+        </section>
+
+        <section id="advances" class="tab-content">
+            <h2>نظام السلف</h2>
+            <div class="flex-forms">
+                <form id="fund-form" class="form-grid">
+                    <h3>تسجيل استلام مبلغ للموظف</h3>
+                    <input type="text" id="fund-emp" placeholder="اسم الموظف" required>
+                    <input type="number" id="fund-amount" placeholder="المبلغ" required>
+                    <input type="date" id="fund-date" required>
+                    <button type="submit">حفظ الرصيد</button>
+                </form>
+                <form id="advance-form" class="form-grid">
+                    <h3>تسجيل سلفة لسائق</h3>
+                    <input type="text" id="adv-driver" placeholder="اسم السائق" required>
+                    <input type="number" id="adv-amount" placeholder="المبلغ" required>
+                    <input type="date" id="adv-date" required>
+                    <input type="text" id="adv-notes" placeholder="ملاحظات">
+                    <button type="submit">إضافة سلفة</button>
+                </form>
+            </div>
+            <div class="fund-summary">
+                <h3>رصيد موظف السلف: <span id="fund-balance">0</span></h3>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>السائق</th><th>المبلغ</th><th>التاريخ</th><th>ملاحظات</th></tr>
+                </thead>
+                <tbody id="advances-table"></tbody>
+            </table>
+        </section>
+
+        <section id="expenses" class="tab-content">
+            <h2>المصاريف العامة</h2>
+            <form id="expense-form" class="form-grid">
+                <input type="text" id="exp-factory" placeholder="المعمل (أو عام)" required>
+                <input type="number" id="exp-amount" placeholder="المبلغ" required>
+                <input type="date" id="exp-date" required>
+                <input type="text" id="exp-notes" placeholder="ملاحظة">
+                <button type="submit">إضافة مصروف</button>
+            </form>
+            <table>
+                <thead>
+                    <tr><th>المعمل/الجهة</th><th>المبلغ</th><th>التاريخ</th><th>الملاحظة</th></tr>
+                </thead>
+                <tbody id="expenses-table"></tbody>
+            </table>
+        </section>
+
+        <section id="reports" class="tab-content">
+            <h2>التقارير الشاملة</h2>
+            <div class="reports-grid">
+                <button class="btn-secondary" onclick="alert('جاري توليد تقرير النقلات اليومية...')">تقرير النقلات اليومية</button>
+                <button class="btn-secondary" onclick="alert('جاري توليد تقرير النقلات الشهرية...')">تقرير النقلات الشهرية</button>
+                <button class="btn-secondary" onclick="alert('جاري توليد تقرير المعامل...')">تقرير المعامل</button>
+                <button class="btn-secondary" onclick="alert('جاري توليد تقرير السواق...')">تقرير السواق</button>
+                <button class="btn-secondary" onclick="alert('جاري توليد تقرير السيارات المؤجرة...')">تقرير السيارات المؤجرة</button>
+                <button class="btn-secondary" onclick="alert('جاري توليد تقرير أرباح الشركة...')">تقرير أرباح سيارات الشركة</button>
+            </div>
+            <p style="margin-top:20px; color:#666;">* ميزة التصدير إلى Excel و PDF تحتاج إلى إدراج مكتبات خارجية سيتم إضافتها لاحقاً.</p>
+        </section>
+
+        <section id="documents" class="tab-content">
+            <h2>إدارة الوثائق</h2>
+            <form id="document-form" class="form-grid">
+                <input type="text" id="doc-driver" placeholder="اسم السائق" required>
+                <input type="text" id="doc-car" placeholder="رقم السيارة" required>
+                <select id="doc-type">
+                    <option>إجازة السوق</option>
+                    <option>هوية السائق</option>
+                    <option>سنوية السيارة</option>
+                    <option>تأمين السيارة</option>
+                </select>
+                <input type="file" id="doc-file" accept=".pdf,.jpg,.png" required>
+                <button type="submit">رفع الملف</button>
+            </form>
+            <table>
+                <thead>
+                    <tr><th>السائق</th><th>السيارة</th><th>نوع الوثيقة</th><th>إجراء</th></tr>
+                </thead>
+                <tbody id="documents-table"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
